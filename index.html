@@ -12,19 +12,23 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header><h1>Weather Dashboard</h1></header>
+    <header class="bg-dark text-light text-center p-2"><h1>Weather Dashboard</h1></header>
     
-    <main>
-        <h2>
-            <span id="city-name">City Name</span> 
-            (<span id="current-date">99/99/9999</span>) 
-            <i id="current-weather">[Icon]</i>
-        </h2>
+    <main class="m-3">
+        <section class="card">
+            <div class="card-body">
+                <h2 class="card-title">
+                    <span id="city-name">City Name</span> 
+                    (<span id="current-date">99/99/9999</span>) 
+                    <i id="current-weather">[Icon]</i>
+                </h2>
 
-        <p>Temperature: <span id="current-temp">99.9</span>&deg;F</p>
-        <p>Humidity: <span id="current-humidity">99</span>%</p>
-        <p>Wind Speed: <span id="current-wind">9.9</span> MPH</p>
-        <p>UV Index: <span id="current-UV">9.99</span></p>
+                <p class="card-text">Temperature: <span id="current-temp">99.9</span>&deg;F</p>
+                <p class="card-text">Humidity: <span id="current-humidity">99</span>%</p>
+                <p class="card-text">Wind Speed: <span id="current-wind">9.9</span> MPH</p>
+                <p class="card-text">UV Index: <span id="current-UV">9.99</span></p>
+            </div>
+        </section>
     </main>
 
 
