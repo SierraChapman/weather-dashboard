@@ -34,7 +34,7 @@ $(document).ready(function () {
             url: "https://api.openweathermap.org/data/2.5/uvi?appid=e97fecefd6f8473cda5766ca71e143de&lat=" + lat + "&lon=" + lon,
             method: "GET"
         }).then(function(response) {
-            // console.log(response);
+            console.log(response);
             var UVIndex = response.value;
             var UVElement = $("#current-UV");
 
@@ -60,14 +60,23 @@ $(document).ready(function () {
                 UVElement.append("<span class=\"sr-only\"> (severe)</span>");
             }
 
-
         })
     }
 
-    // Display current date
-    $("#current-date").text(new Date().toLocaleDateString());
+    // Event listener for searching a city
+    $("#search-form").on("submit", function(event) {
+        event.preventDefault();
+        //console.log(this);
 
-    // Display current weather
-    displayCurrentWeather("pleasanton");
+        // Display current date
+        $("#current-date").text(new Date().toLocaleDateString());
+
+        // Display current weather
+        displayCurrentWeather($("#search").val());
+
+        // Clear searchbar
+        $("#search").val("");
+
+    })
 
 });
