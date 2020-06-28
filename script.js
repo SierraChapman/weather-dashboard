@@ -24,14 +24,43 @@ $(document).ready(function () {
             $("#current-wind").text(response.wind.speed);
 
             // Get coordinates from current weather and request UV index
-            $.ajax({
-                url: "https://api.openweathermap.org/data/2.5/uvi?appid=e97fecefd6f8473cda5766ca71e143de&lat=" + response.coord.lat + "&lon=" + response.coord.lon,
-                method: "GET"
-            }).then(function(response) {
-                // console.log(response);
-                // Display UV index
-                $("#current-UV").text(response.value);
-            })
+            displayUVIndex(response.coord.lat, response.coord.lon);
+        })
+    }
+
+    // Function to request and display UV Index given some coordinates
+    function displayUVIndex(lat, lon) {
+        $.ajax({
+            url: "https://api.openweathermap.org/data/2.5/uvi?appid=e97fecefd6f8473cda5766ca71e143de&lat=" + lat + "&lon=" + lon,
+            method: "GET"
+        }).then(function(response) {
+            // console.log(response);
+            var UVIndex = response.value;
+            var UVElement = $("#current-UV");
+
+            // Display UV index
+            UVElement.text(UVIndex);
+
+            // Color-code by level.
+            if (UVIndex < 2.5) {
+                // Low
+                UVElement.addClass("bg-success");
+                // Add label for screen readers
+                UVElement.append("<span class=\"sr-only\"> (low)</span>");
+            } else if (UVIndex < 7.5) {
+                // Moderate
+                UVElement.addClass("bg-warning");
+                // Add label for screen readers
+                UVElement.append("<span class=\"sr-only\"> (moderate)</span>");
+            } else {
+                // Severe
+                UVElement.addClass("bg-danger");
+                UVElement.addClass("text-white");
+                // Add label for screen readers
+                UVElement.append("<span class=\"sr-only\"> (severe)</span>");
+            }
+
+
         })
     }
 
@@ -39,6 +68,6 @@ $(document).ready(function () {
     $("#current-date").text(new Date().toLocaleDateString());
 
     // Display current weather
-    displayCurrentWeather("new york");
+    displayCurrentWeather("pleasanton");
 
 });
