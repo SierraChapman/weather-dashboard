@@ -1,3 +1,7 @@
 #current-weather {
-    height: 1.4em;
+    /* height: 1.4em; */
+}
+
+.forecast {
+    max-width: 400px;
 }
