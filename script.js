@@ -1,5 +1,24 @@
 $(document).ready(function () {
 
+    // CREATE FUNCTION TO CONVERT UNIX TIME TO REGULAR
+
+    function selectForecasts(allForecasts) {
+        // Currently, this function selects 1 forecast per day that is close to the current time
+        // If time allows, it will be modified to instead make a selection near midday
+        var selectForecasts = [];
+
+        // Add 5 forecasts
+        for (var i = 0; i < 5; i++) {
+            // Choose forecasts at even intervals
+            // Every 8th forecasts because 8 * 3 hr = 24 hr
+            // Add 7 so that last selected is 39th
+            selectForecasts.push(allForecasts[i * 8 + 7]);
+        }
+
+        //console.log(selectForecasts);
+        return selectForecasts;
+    }
+
     function displayCurrentWeather(cityName) {
 
         // Request current weather conditions (minus UV Index)
@@ -9,7 +28,7 @@ $(document).ready(function () {
             url: queryURL,
             method: "GET"
         }).then(function(response) {
-            console.log(response);
+            // console.log(response);
 
             // Display city name
             $("#city-name").text(response.name);
@@ -34,7 +53,7 @@ $(document).ready(function () {
             url: "https://api.openweathermap.org/data/2.5/uvi?appid=e97fecefd6f8473cda5766ca71e143de&lat=" + lat + "&lon=" + lon,
             method: "GET"
         }).then(function(response) {
-            console.log(response);
+            // console.log(response);
             var UVIndex = response.value;
             var UVElement = $("#current-UV");
 
@@ -63,6 +82,39 @@ $(document).ready(function () {
         })
     }
 
+    // Function to request and display 5-day forecast
+    function displayForecast(cityName) {
+
+        var queryURL = "https://api.openweathermap.org/data/2.5/forecast?appid=e97fecefd6f8473cda5766ca71e143de&units=imperial&q=" + cityName;
+
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function(response) {
+            console.log(response);
+
+            // Select forecasts to use
+            var forecasts = selectForecasts(response.list);
+
+            // Loop through forecasts and html elements
+            for (var i = 0; i < 5; i++) {
+                
+                // Add the date
+
+                // Display weather conditions
+                $(".forecast-weather").eq(i).attr("src", "http://openweathermap.org/img/wn/" + forecasts[i].weather[0].icon + "@2x.png")
+                $(".forecast-weather").eq(i).attr("alt", forecasts[i].weather[0].description)
+
+                // Display temperature
+                $(".forecast-temp").eq(i).text(forecasts[i].main.temp);
+
+                // Display humidity
+                $(".forecast-humidity").eq(i).text(forecasts[i].main.humidity);
+            }
+
+        })
+    }
+
     // Event listener for searching a city
     $("#search-form").on("submit", function(event) {
         event.preventDefault();
@@ -73,6 +125,9 @@ $(document).ready(function () {
 
         // Display current weather
         displayCurrentWeather($("#search").val());
+
+        // Display future weather
+        displayForecast($("#search").val())
 
         // Clear searchbar
         $("#search").val("");
