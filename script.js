@@ -1,6 +1,16 @@
 $(document).ready(function () {
 
     // CREATE FUNCTION TO CONVERT UNIX TIME TO REGULAR
+    function formatDate(unixTimestamp, timezone) {
+        // Create date object with timezone adjustment
+        var date = new Date((unixTimestamp + timezone) * 1000);
+
+        //console.log(date.toUTCString());
+
+        // Use UTC functions to prevent automatic conversion to user's timezone
+        // Add 1 to month because it's indexed from zero
+        return (date.getUTCMonth() + 1) + "/" + date.getUTCDate() + "/" + date.getUTCFullYear();
+    }
 
     function selectForecasts(allForecasts) {
         // Currently, this function selects 1 forecast per day that is close to the current time
@@ -28,10 +38,12 @@ $(document).ready(function () {
             url: queryURL,
             method: "GET"
         }).then(function(response) {
-            // console.log(response);
+            console.log(response);
 
             // Display city name
             $("#city-name").text(response.name);
+            // Display date of current prediction
+            $("#current-date").text(formatDate(response.dt, response.timezone));
             // Display weather conditions
             $("#current-weather").attr("src", "http://openweathermap.org/img/wn/" + response.weather[0].icon + "@2x.png")
             $("#current-weather").attr("alt", response.weather[0].description)
@@ -100,6 +112,7 @@ $(document).ready(function () {
             for (var i = 0; i < 5; i++) {
                 
                 // Add the date
+                $(".forecast-date").eq(i).text(formatDate(forecasts[i].dt, response.city.timezone));
 
                 // Display weather conditions
                 $(".forecast-weather").eq(i).attr("src", "http://openweathermap.org/img/wn/" + forecasts[i].weather[0].icon + "@2x.png")
@@ -119,9 +132,6 @@ $(document).ready(function () {
     $("#search-form").on("submit", function(event) {
         event.preventDefault();
         //console.log(this);
-
-        // Display current date
-        $("#current-date").text(new Date().toLocaleDateString());
 
         // Display current weather
         displayCurrentWeather($("#search").val());
