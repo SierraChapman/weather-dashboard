@@ -31,7 +31,7 @@ $(document).ready(function () {
             // Display date of current prediction
             $("#current-date").text(formatDate(response.dt, response.timezone));
             // Display weather conditions
-            $("#current-weather").attr("src", "http://openweathermap.org/img/wn/" + response.weather[0].icon + "@2x.png")
+            $("#current-weather").attr("src", "https://openweathermap.org/img/wn/" + response.weather[0].icon + "@2x.png")
             $("#current-weather").attr("alt", response.weather[0].description)
             // Display temperature
             $("#current-temp").text(response.main.temp);
@@ -101,7 +101,7 @@ $(document).ready(function () {
                 $(".forecast-date").eq(i).text(formatDate(forecasts[i].dt, response.city.timezone));
 
                 // Display weather conditions
-                $(".forecast-weather").eq(i).attr("src", "http://openweathermap.org/img/wn/" + forecasts[i].weather[0].icon + "@2x.png")
+                $(".forecast-weather").eq(i).attr("src", "https://openweathermap.org/img/wn/" + forecasts[i].weather[0].icon + "@2x.png")
                 $(".forecast-weather").eq(i).attr("alt", forecasts[i].weather[0].description)
 
                 // Display temperature
