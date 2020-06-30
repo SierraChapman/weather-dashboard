@@ -219,9 +219,6 @@ $(document).ready(function () {
     if (mostRecentCity) {
         displayCurrentWeather(mostRecentCity);
         displayForecast(mostRecentCity);
-    } else {
-        displayCurrentWeather("San Francisco");
-        displayForecast("San Francisco");
     }
 
 });
