@@ -205,6 +205,12 @@ $(document).ready(function () {
         displayForecast($(this).text())
     })
 
+    // Delete recent cities when "clear search history" is clicked
+    $("#clear-recents").on("click", function() {
+        localStorage.removeItem("recentCities");
+        displayRecentCities();
+    })
+
     // When page is loaded, show recent cities
     displayRecentCities();
 
