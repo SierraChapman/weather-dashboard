@@ -1,3 +1,8 @@
 .forecast {
-    max-width: 400px;
+    /* min-width: 170px; */
+    max-width: 250px;
+}
+
+aside {
+    min-width: 240px;
 }

@@ -13,84 +13,101 @@
 </head>
 <body>
     <header class="bg-dark text-light text-center p-2"><h1>Weather Dashboard</h1></header>
-    
-    <main class="m-3">
-        <!-- Search bar -->
-        <form class="form-group" id="search-form" autocomplete="off">
-            <label for="search" class="font-weight-bold">Search for a city:</label>
-            <input class="form-control" type="search" placeholder="Search..." id="search">
-        </form>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-md-auto bg-light">
+                <aside class="mt-3">
+                    <!-- Search bar -->
+                    <form class="form-group" id="search-form" autocomplete="off">
+                        <label for="search" class="font-weight-bold">Search for a city:</label>
+                        <input class="form-control" type="search" placeholder="Search..." id="search">
+                    </form>
+                    <!-- Previous searches -->
+                    <ul class="list-group" id="recent-search-list">
+                        <li role="button" class="list-group-item">Paris</li>
+                        <li role="button" class="list-group-item">London</li>
+                        <li role="button" class="list-group-item">San Francisco</li>
+                        <li role="button" class="list-group-item">New York</li>
+                        <li role="button" class="list-group-item">Sydney</li>
+                    </ul>
+                </aside>
+            </div>
+            
+            <div class="col-12 col-md">
+                <main class="mt-3">
+                    <!-- Current weather display -->
+                    <section class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">
+                                <span id="city-name"></span> 
+                                (<span id="current-date"></span>)
+                            </h2>
+                            <p class="card-text"><img id="current-weather"/></p>
+                            <p class="card-text">Temperature: <span id="current-temp"></span>&deg;F</p>
+                            <p class="card-text">Humidity: <span id="current-humidity"></span>%</p>
+                            <p class="card-text">Wind Speed: <span id="current-wind"></span> mph</p>
+                            <p class="card-text">UV Index: <span id="current-UV" class="rounded p-1"></span></p>
+                        </div>
+                    </section>
 
-        <!-- Current weather display -->
-        <section class="card">
-            <div class="card-body">
-                <h2 class="card-title">
-                    <span id="city-name"></span> 
-                    (<span id="current-date"></span>)
-                </h2>
-                <p class="card-text"><img id="current-weather"/></p>
-                <p class="card-text">Temperature: <span id="current-temp"></span>&deg;F</p>
-                <p class="card-text">Humidity: <span id="current-humidity"></span>%</p>
-                <p class="card-text">Wind Speed: <span id="current-wind"></span> mph</p>
-                <p class="card-text">UV Index: <span id="current-UV" class="rounded p-1"></span></p>
+                    <!-- 5 day forecast -->
+                    <h3 class="mt-4">5-Day Forecast:</h3>
+                    <section class="row" id="5-day-forecast">
+                        <div class="col-12 col-xl">
+                            <div class="card bg-primary text-white mb-3 forecast">
+                                <div class="card-body">
+                                    <h4 class="card-title forecast-date"></h4>
+                                    <img class="forecast-weather"/>
+                                    <p class="card-text">Temp: <span class="forecast-temp"></span>&deg;F</p>
+                                    <p class="card-text">Humidity: <span class="forecast-humidity"></span>%</p>        
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-xl">
+                            <div class="card bg-primary text-white mb-3 forecast">
+                                <div class="card-body">
+                                    <h4 class="card-title forecast-date"></h4>
+                                    <img class="forecast-weather"/>
+                                    <p class="card-text">Temp: <span class="forecast-temp"></span>&deg;F</p>
+                                    <p class="card-text">Humidity: <span class="forecast-humidity"></span>%</p>        
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-xl">
+                            <div class="card bg-primary text-white mb-3 forecast">
+                                <div class="card-body">
+                                    <h4 class="card-title forecast-date"></h4>
+                                    <img class="forecast-weather"/>
+                                    <p class="card-text">Temp: <span class="forecast-temp"></span>&deg;F</p>
+                                    <p class="card-text">Humidity: <span class="forecast-humidity"></span>%</p>        
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-xl">
+                            <div class="card bg-primary text-white mb-3 forecast">
+                                <div class="card-body">
+                                    <h4 class="card-title forecast-date"></h4>
+                                    <img class="forecast-weather"/>
+                                    <p class="card-text">Temp: <span class="forecast-temp"></span>&deg;F</p>
+                                    <p class="card-text">Humidity: <span class="forecast-humidity"></span>%</p>        
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-xl">
+                            <div class="card bg-primary text-white mb-3 forecast">
+                                <div class="card-body">
+                                    <h4 class="card-title forecast-date"></h4>
+                                    <img class="forecast-weather"/>
+                                    <p class="card-text">Temp: <span class="forecast-temp"></span>&deg;F</p>
+                                    <p class="card-text">Humidity: <span class="forecast-humidity"></span>%</p>        
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </main>
             </div>
-        </section>
-
-        <!-- 5 day forecast -->
-        <h3 class="mt-4">5-Day Forecast:</h3>
-        <section class="row" id="5-day-forecast">
-            <div class="col-12 col-lg">
-                <div class="card bg-primary text-white mb-3 forecast">
-                    <div class="card-body">
-                        <h4 class="card-title forecast-date"></h4>
-                        <img class="forecast-weather"/>
-                        <p class="card-text">Temp: <span class="forecast-temp"></span>&deg;F</p>
-                        <p class="card-text">Humidity: <span class="forecast-humidity"></span>%</p>        
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-lg">
-                <div class="card bg-primary text-white mb-3 forecast">
-                    <div class="card-body">
-                        <h4 class="card-title forecast-date"></h4>
-                        <img class="forecast-weather"/>
-                        <p class="card-text">Temp: <span class="forecast-temp"></span>&deg;F</p>
-                        <p class="card-text">Humidity: <span class="forecast-humidity"></span>%</p>        
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-lg">
-                <div class="card bg-primary text-white mb-3 forecast">
-                    <div class="card-body">
-                        <h4 class="card-title forecast-date"></h4>
-                        <img class="forecast-weather"/>
-                        <p class="card-text">Temp: <span class="forecast-temp"></span>&deg;F</p>
-                        <p class="card-text">Humidity: <span class="forecast-humidity"></span>%</p>        
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-lg">
-                <div class="card bg-primary text-white mb-3 forecast">
-                    <div class="card-body">
-                        <h4 class="card-title forecast-date"></h4>
-                        <img class="forecast-weather"/>
-                        <p class="card-text">Temp: <span class="forecast-temp"></span>&deg;F</p>
-                        <p class="card-text">Humidity: <span class="forecast-humidity"></span>%</p>        
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-lg">
-                <div class="card bg-primary text-white mb-3 forecast">
-                    <div class="card-body">
-                        <h4 class="card-title forecast-date"></h4>
-                        <img class="forecast-weather"/>
-                        <p class="card-text">Temp: <span class="forecast-temp"></span>&deg;F</p>
-                        <p class="card-text">Humidity: <span class="forecast-humidity"></span>%</p>        
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
+        </div>
+    </div>
 
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
