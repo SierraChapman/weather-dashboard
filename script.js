@@ -189,7 +189,7 @@ $(document).ready(function () {
         displayCurrentWeather($("#search").val());
 
         // Display future weather
-        displayForecast($("#search").val())
+        displayForecast($("#search").val());
 
         // Clear searchbar
         $("#search").val("");
@@ -207,5 +207,13 @@ $(document).ready(function () {
 
     // When page is loaded, show recent cities
     displayRecentCities();
+
+    // If there are any recent cities, use the most recent
+    var mostRecentCity = getRecentCities()[0];
+
+    if (mostRecentCity) {
+        displayCurrentWeather(mostRecentCity);
+        displayForecast(mostRecentCity);
+    }
 
 });
