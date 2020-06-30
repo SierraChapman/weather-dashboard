@@ -144,4 +144,13 @@ $(document).ready(function () {
 
     })
 
+    // Event listener for clicking a city
+    $(document).on("click", ".recent-search-item", function(event) {
+        // Display current weather
+        displayCurrentWeather($(this).text());
+
+        // Display future weather
+        displayForecast($(this).text())
+    })
+
 });
