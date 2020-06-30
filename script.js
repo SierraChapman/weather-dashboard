@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    // CREATE FUNCTION TO CONVERT UNIX TIME TO REGULAR
+    // Function to convert unix time to regular date
     function formatDate(unixTimestamp, timezone) {
         // Create date object with timezone adjustment
         var date = new Date((unixTimestamp + timezone) * 1000);
@@ -12,23 +12,6 @@ $(document).ready(function () {
         return (date.getUTCMonth() + 1) + "/" + date.getUTCDate() + "/" + date.getUTCFullYear();
     }
 
-    function selectForecasts(allForecasts) {
-        // Currently, this function selects 1 forecast per day that is close to the current time
-        // If time allows, it will be modified to instead make a selection near midday
-        var selectForecasts = [];
-
-        // Add 5 forecasts
-        for (var i = 0; i < 5; i++) {
-            // Choose forecasts at even intervals
-            // Every 8th forecasts because 8 * 3 hr = 24 hr
-            // Add 7 so that last selected is 39th
-            selectForecasts.push(allForecasts[i * 8 + 7]);
-        }
-
-        //console.log(selectForecasts);
-        return selectForecasts;
-    }
-
     function displayCurrentWeather(cityName) {
 
         // Request current weather conditions (minus UV Index)
@@ -38,7 +21,10 @@ $(document).ready(function () {
             url: queryURL,
             method: "GET"
         }).then(function(response) {
-            console.log(response);
+            //console.log(response);
+
+            // Save city name to list of recently viewed
+            saveCityName(response.name)
 
             // Display city name
             $("#city-name").text(response.name);
@@ -103,7 +89,7 @@ $(document).ready(function () {
             url: queryURL,
             method: "GET"
         }).then(function(response) {
-            console.log(response);
+            //console.log(response);
 
             // Select forecasts to use
             var forecasts = selectForecasts(response.list);
@@ -128,8 +114,49 @@ $(document).ready(function () {
         })
     }
 
+    function selectForecasts(allForecasts) {
+        // Currently, this function selects 1 forecast per day that is close to the current time
+        // If time allows, it will be modified to instead make a selection near midday
+        var selectForecasts = [];
+
+        // Add 5 forecasts
+        for (var i = 0; i < 5; i++) {
+            // Choose forecasts at even intervals
+            // Every 8th forecasts because 8 * 3 hr = 24 hr
+            // Add 7 so that last selected is 39th
+            selectForecasts.push(allForecasts[i * 8 + 7]);
+        }
+
+        //console.log(selectForecasts);
+        return selectForecasts;
+    }
+
+    function saveCityName(cityName) {
+        // Get list from local storage
+        var recentCities = JSON.parse(localStorage.getItem("recentCities"));
+
+        // If list does not exist in local storage, initialize empty list
+        if (recentCities === null) {
+            recentCities = [];
+        }
+
+        // If current city is on the list, remove it
+        var cityNameIndex = recentCities.indexOf(cityName);
+
+        if (cityNameIndex >= 0) {
+            recentCities.splice(cityNameIndex, 1);
+        }
+
+        // Add city to beginning of array
+        recentCities.unshift(cityName);
+
+        // Save updated list in local storage
+        localStorage.setItem("recentCities", JSON.stringify(recentCities));
+    }
+
     // Event listener for searching a city
     $("#search-form").on("submit", function(event) {
+
         event.preventDefault();
         //console.log(this);
 
