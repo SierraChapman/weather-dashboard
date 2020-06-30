@@ -131,7 +131,7 @@ $(document).ready(function () {
         return selectForecasts;
     }
 
-    function saveCityName(cityName) {
+    function getRecentCities() {
         // Get list from local storage
         var recentCities = JSON.parse(localStorage.getItem("recentCities"));
 
@@ -139,6 +139,13 @@ $(document).ready(function () {
         if (recentCities === null) {
             recentCities = [];
         }
+
+        return recentCities;
+    }
+
+    function saveCityName(cityName) {
+        // Get list (if exists) from local storage
+        var recentCities = getRecentCities();
 
         // If current city is on the list, remove it
         var cityNameIndex = recentCities.indexOf(cityName);
@@ -152,6 +159,24 @@ $(document).ready(function () {
 
         // Save updated list in local storage
         localStorage.setItem("recentCities", JSON.stringify(recentCities));
+
+        // Update the displayed list
+        displayRecentCities();
+    }
+
+    function displayRecentCities() {
+        // Clear the current display
+        var recentSearchList = $("#recent-search-list")
+        recentSearchList.empty();
+
+        // Get list (if exists) from local storage
+        var recentCities = getRecentCities();
+
+        // For each item in the list
+        for (var i = 0; i < recentCities.length; i++) {
+            // Append to list new list item to list
+            recentSearchList.append("<li role=\"button\" class=\"list-group-item recent-search-item\">" + recentCities[i] + "</li>");
+        }
     }
 
     // Event listener for searching a city
@@ -179,5 +204,8 @@ $(document).ready(function () {
         // Display future weather
         displayForecast($(this).text())
     })
+
+    // When page is loaded, show recent cities
+    displayRecentCities();
 
 });
