@@ -61,18 +61,17 @@ $(document).ready(function () {
             // Color-code by level.
             if (UVIndex < 2.5) {
                 // Low
-                UVElement.addClass("bg-success");
+                UVElement.attr("class", "rounded p-1 bg-success");
                 // Add label for screen readers
                 UVElement.append("<span class=\"sr-only\"> (low)</span>");
             } else if (UVIndex < 7.5) {
                 // Moderate
-                UVElement.addClass("bg-warning");
+                UVElement.attr("class", "rounded p-1 bg-warning");
                 // Add label for screen readers
                 UVElement.append("<span class=\"sr-only\"> (moderate)</span>");
             } else {
                 // Severe
-                UVElement.addClass("bg-danger");
-                UVElement.addClass("text-white");
+                UVElement.attr("class", "rounded p-1 bg-danger text-white");
                 // Add label for screen readers
                 UVElement.append("<span class=\"sr-only\"> (severe)</span>");
             }
