@@ -42,6 +42,9 @@ $(document).ready(function () {
 
             // Get coordinates from current weather and request UV index
             displayUVIndex(response.coord.lat, response.coord.lon);
+
+            // Make the info visible
+            $("main").removeClass("d-none");
         })
     }
 
