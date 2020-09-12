@@ -5,4 +5,5 @@
 
 aside {
     min-width: 240px;
+    min-height: calc(100vh - 88px);
 }
