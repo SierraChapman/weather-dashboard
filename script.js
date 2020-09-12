@@ -167,6 +167,7 @@ $(document).ready(function () {
         // Clear the current display
         var recentSearchList = $("#recent-search-list")
         recentSearchList.empty();
+        $("#clear-recents").addClass("d-none");
 
         // Get list (if exists) from local storage
         var recentCities = getRecentCities();
@@ -175,6 +176,11 @@ $(document).ready(function () {
         for (var i = 0; i < recentCities.length; i++) {
             // Append to list new list item to list
             recentSearchList.append("<li role=\"button\" class=\"list-group-item recent-search-item\">" + recentCities[i] + "</li>");
+        }
+
+        // Display "clear history" button only if there are recent cities
+        if (recentCities.length) {
+            $("#clear-recents").removeClass("d-none");
         }
     }
 
